@@ -49,7 +49,7 @@ public class BeeProductive implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		Registry.register(NECTARS, new Identifier(MODID, "none"), Nectar.NONE);
-		EntityComponentCallback.event(BeeEntity.class).register((entity, container) -> container.put(BEE_COMPONENT, new BeeComponentImpl()));
+		EntityComponentCallback.event(BeeEntity.class).register((entity, container) -> container.put(BEE_COMPONENT, new BeeComponentImpl(entity)));
 		EntityComponents.setRespawnCopyStrategy(BEE_COMPONENT, RespawnCopyStrategy.ALWAYS_COPY);
 	}
 

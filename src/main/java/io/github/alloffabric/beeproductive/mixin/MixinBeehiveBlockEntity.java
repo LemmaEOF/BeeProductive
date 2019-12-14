@@ -5,7 +5,6 @@ import io.github.alloffabric.beeproductive.api.BeeComponent;
 import io.github.alloffabric.beeproductive.api.Beehive;
 import io.github.alloffabric.beeproductive.api.HoneyFlavor;
 import io.github.alloffabric.beeproductive.api.Nectar;
-import io.github.alloffabric.beeproductive.impl.BeeComponentImpl;
 import io.github.alloffabric.beeproductive.impl.BeehiveHoneyFlavorSetter;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -21,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -31,6 +31,7 @@ import java.util.List;
 
 @Mixin(value = BeeHiveBlockEntity.class, priority = 2000)
 public abstract class MixinBeehiveBlockEntity extends BlockEntity implements BeehiveHoneyFlavorSetter {
+
 	Object2IntMap<HoneyFlavor> flavors = new Object2IntOpenHashMap<>();
 
 	public MixinBeehiveBlockEntity(BlockEntityType<?> type) {
@@ -56,6 +57,7 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 	@Redirect(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isNight()Z"))
 	private boolean nightProxy(World world, BlockState state, CompoundTag tag, List<Entity> entities, BeeHiveBlockEntity.BeeState beeState) {
 		BeeComponent comp = getComponent(tag);
+		if (comp == null) return world.isNight();
 		if (comp.getTraitValue(BeeProductive.NOCTURNAL)) return false;
 		//Bee Angry-Est compat
 		else if (tag.contains("nocturnal")) return world.isDay();
@@ -65,6 +67,7 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 	@Redirect(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isRaining()Z"))
 	private boolean rainProxy(World world, BlockState state, CompoundTag tag, List<Entity> entities, BeeHiveBlockEntity.BeeState beeState) {
 		BeeComponent comp = getComponent(tag);
+		if (comp == null) return world.isRaining();
 		if (comp.getTraitValue(BeeProductive.WEATHERPROOF)) return false;
 		else return world.isRaining();
 	}
@@ -83,6 +86,6 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 		if (entity instanceof BeeEntity) {
 			return BeeProductive.BEE_COMPONENT.get(entity);
 		}
-		return new BeeComponentImpl();
+		return null;
 	}
 }
