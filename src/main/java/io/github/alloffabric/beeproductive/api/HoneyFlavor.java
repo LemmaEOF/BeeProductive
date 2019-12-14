@@ -7,27 +7,28 @@ import net.minecraft.item.Items;
  * A flavor of honey processed by bees in a beehive.
  * Stacks of more than one item will be split into single-item stacks when dropping
  */
-//TODO: data-driven instead?
-public interface HoneyFlavor {
-	HoneyFlavor VANILLA = new HoneyFlavor() {
-		@Override
-		public ItemStack getSheared() {
-			return new ItemStack(Items.HONEYCOMB, 3);
-		}
+//TODO: loot tables instead?
+public class HoneyFlavor {
+	public static final HoneyFlavor VANILLA = new HoneyFlavor(new ItemStack(Items.HONEYCOMB, 3), new ItemStack(Items.HONEY_BOTTLE));
+	private ItemStack sheared;
+	private ItemStack bottled;
 
-		@Override
-		public ItemStack getBottled() {
-			return new ItemStack(Items.HONEY_BOTTLE);
-		}
-	};
+	public HoneyFlavor(ItemStack sheared, ItemStack bottled) {
+		this.sheared = sheared;
+		this.bottled = bottled;
+	}
 
 	/**
 	 * @return The result from using shears on a full hive.
 	 */
-	ItemStack getSheared();
+	public ItemStack getSheared() {
+		return sheared.copy();
+	}
 
 	/**
 	 * @return The result from using an empty bottle on a full hive.
 	 */
-	ItemStack getBottled();
+	public ItemStack getBottled() {
+		return bottled.copy();
+	}
 }
