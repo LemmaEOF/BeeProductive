@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:flowers",
+    "beeproductive:bee_feeder"
+  ]
+}

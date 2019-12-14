@@ -1,4 +1,4 @@
-package io.github.alloffabric.beeproductive.api;
+package io.github.alloffabric.beeproductive.api.trait;
 
 import net.minecraft.nbt.Tag;
 

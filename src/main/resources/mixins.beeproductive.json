@@ -3,5 +3,11 @@
   "package": "io.github.alloffabric.beeproductive.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "MixinBeeEntity",
+    "MixinBeehiveBlock",
+    "MixinBeehiveBlockEntity"
+  ],
+  "client": [
+    "MixinBeeEntityRenderer"
   ]
 }
