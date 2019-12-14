@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "id": "starter",
+  "id": "beeproductive",
   "version": "${version}",
 
-  "name": "Fabric Starter",
+  "name": "Bee Productive",
   "icon": "assets/starter/icon.png",
-  "description": "Template for starting out Fabric mods",
+  "description": "Traits and production for bees",
   "license": "MIT",
   "contact": {
     "sources": "https://github.com/CottonMC/FabricStarter"
@@ -13,16 +13,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.cottonmc.starter.FabricStarter"
+      "io.github.alloffabric.beeproductive.BeeProductive"
     ]
   },
   "mixins": [
-    "mixins.starter.json"
+    "mixins.beeproductive.json"
   ],
   "depends": {
     "fabricloader": ">=0.4.0"
-  },
-  "custom": {
-    "modmenu:api": true
   }
 }

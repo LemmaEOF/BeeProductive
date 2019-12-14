@@ -39,6 +39,7 @@ repositories {
 	mavenCentral()
 	maven { url "http://maven.fabricmc.net/" }
 	maven { url "http://server.bbkr.space:8081/artifactory/libs-release" }
+	maven { url "https://maven.abusedmaster.xyz" }
 }
 
 dependencies {
@@ -47,6 +48,12 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+
+	modImplementation "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
+	modImplementation "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-entity:${project.cardinal_version}"
+
+	include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
+	include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-entity:${project.cardinal_version}"
 }
 
 processResources {
