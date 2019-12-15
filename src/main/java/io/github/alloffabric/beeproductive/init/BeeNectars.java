@@ -13,7 +13,8 @@ public class BeeNectars {
 	public static final Nectar WEATHERPROOF = register("weatherproof", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeTraits.WEATHERPROOF, true));
 
 	//aesthetic trait nectars
-	public static final Nectar TRANS_BEE = register("trans_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/trans_bee")));
+	public static final Nectar TRANS_SKIN = register("trans_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/trans_bee")));
+	public static final Nectar NONBINARY_SKIN = register("nonbinary_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/nonbinary_bee")));
 
 	//honey flavor nectars
 	public static final Nectar ENDER = register("ender", (bee, hive) -> hive.addHoneyFlavor(BeeHoneys.ENDER));
