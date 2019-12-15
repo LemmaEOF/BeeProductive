@@ -10,6 +10,7 @@
 
   "trait.beeproductive.nocturnal": "Nocturnal",
   "trait.beeproductive.weatherproof": "Weatherproof",
+  "trait.beeproductive.pacifist": "Pacifist",
   "trait.beeproductive.skin": "Skin",
 
   "msg.beeproductive.honey_flavor": "The honey tastes like %s",

@@ -2,7 +2,7 @@ package io.github.alloffabric.beeproductive.init;
 
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.item.NectarItem;
-import io.github.alloffabric.beeproductive.item.SwabItem;
+import io.github.alloffabric.beeproductive.item.BeeSwabItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
@@ -15,7 +15,7 @@ public class BeeItems {
 	public static final Item TRANS_NECTAR = register("trans_skin_nectar", new NectarItem(BeeNectars.TRANS_BEE, new Item.Settings().group(ItemGroup.MISC)));
 	public static final Item ENDER_NECTAR = register("ender_nectar", new NectarItem(BeeNectars.ENDER, new Item.Settings().group(ItemGroup.MISC)));
 
-	public static final Item BEE_SWAB = register("bee_swab", new SwabItem(new Item.Settings().group(ItemGroup.MISC)));
+	public static final Item BEE_SWAB = register("bee_swab", new BeeSwabItem(new Item.Settings().group(ItemGroup.MISC)));
 
 	public static void init() { }
 

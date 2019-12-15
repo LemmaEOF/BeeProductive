@@ -22,8 +22,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class SwabItem extends Item {
-	public SwabItem(Settings settings) {
+public class BeeSwabItem extends Item {
+	public BeeSwabItem(Settings settings) {
 		super(settings);
 	}
 
