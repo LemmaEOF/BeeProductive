@@ -1,7 +1,6 @@
 package io.github.alloffabric.beeproductive.api;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 
 /**
  * A flavor of honey processed by bees in a beehive.
@@ -9,7 +8,6 @@ import net.minecraft.item.Items;
  */
 //TODO: loot tables instead?
 public class HoneyFlavor {
-	public static final HoneyFlavor VANILLA = new HoneyFlavor(new ItemStack(Items.HONEYCOMB, 3), new ItemStack(Items.HONEY_BOTTLE));
 	private ItemStack sheared;
 	private ItemStack bottled;
 

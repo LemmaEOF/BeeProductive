@@ -2,10 +2,13 @@ package io.github.alloffabric.beeproductive.mixin;
 
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
-import io.github.alloffabric.beeproductive.api.Beehive;
+import io.github.alloffabric.beeproductive.hive.Beehive;
 import io.github.alloffabric.beeproductive.api.HoneyFlavor;
 import io.github.alloffabric.beeproductive.api.Nectar;
-import io.github.alloffabric.beeproductive.impl.BeehiveHoneyFlavorSetter;
+import io.github.alloffabric.beeproductive.hive.BeehiveProvider;
+import io.github.alloffabric.beeproductive.hooks.BeehiveAccessor;
+import io.github.alloffabric.beeproductive.init.BeeNectars;
+import io.github.alloffabric.beeproductive.init.BeeTraits;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.BlockState;
@@ -31,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.List;
 
 @Mixin(value = BeeHiveBlockEntity.class, priority = 2000)
-public abstract class MixinBeehiveBlockEntity extends BlockEntity implements BeehiveHoneyFlavorSetter {
+public abstract class MixinBeehiveBlockEntity extends BlockEntity implements BeehiveAccessor {
 
 	Object2IntMap<HoneyFlavor> flavors = new Object2IntOpenHashMap<>();
 
@@ -59,7 +62,7 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 	private boolean nightProxy(World world, BlockState state, CompoundTag tag, List<Entity> entities, BeeHiveBlockEntity.BeeState beeState) {
 		BeeComponent comp = getComponent(tag);
 		if (comp == null) return world.isNight();
-		if (comp.getTraitValue(BeeProductive.NOCTURNAL)) return false;
+		if (comp.getTraitValue(BeeTraits.NOCTURNAL)) return false;
 		//Bee Angry-Est compat
 		else if (tag.contains("nocturnal")) return world.isDay();
 		else return world.isNight();
@@ -69,17 +72,17 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 	private boolean rainProxy(World world, BlockState state, CompoundTag tag, List<Entity> entities, BeeHiveBlockEntity.BeeState beeState) {
 		BeeComponent comp = getComponent(tag);
 		if (comp == null) return world.isRaining();
-		if (comp.getTraitValue(BeeProductive.WEATHERPROOF)) return false;
+		if (comp.getTraitValue(BeeTraits.WEATHERPROOF)) return false;
 		else return world.isRaining();
 	}
 
 	@Inject(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;onHoneyDelivered()V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
 	private void applyNectarEffects(BlockState state, CompoundTag tag, List<Entity> entities, BeeHiveBlockEntity.BeeState beeState, CallbackInfoReturnable<Boolean> info,
 									BlockPos pos, Direction facingDir, Entity entity, BeeEntity bee) {
-		Beehive hive = (Beehive) world.getBlockState(pos).getBlock();
+		Beehive hive = ((BeehiveProvider) world.getBlockState(pos).getBlock()).getBeehive(this.world, pos, state);
 		BeeComponent component = BeeProductive.BEE_COMPONENT.get(bee);
 		component.getNectar().onApply(bee, hive);
-		component.setNectar(Nectar.NONE);
+		component.setNectar(BeeNectars.EMPTY);
 	}
 
 	@Inject(method = "toTag", at = @At("RETURN"))

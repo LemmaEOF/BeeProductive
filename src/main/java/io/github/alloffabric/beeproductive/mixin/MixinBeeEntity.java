@@ -3,7 +3,7 @@ package io.github.alloffabric.beeproductive.mixin;
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
 import io.github.alloffabric.beeproductive.block.FeederBlock;
-import io.github.alloffabric.beeproductive.impl.BeeEntityAccessor;
+import io.github.alloffabric.beeproductive.hooks.BeeEntityAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.item.Item;

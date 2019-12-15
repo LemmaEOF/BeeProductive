@@ -3,7 +3,7 @@ package io.github.alloffabric.beeproductive.item;
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
 import io.github.alloffabric.beeproductive.api.Nectar;
-import io.github.alloffabric.beeproductive.impl.BeeEntityAccessor;
+import io.github.alloffabric.beeproductive.hooks.BeeEntityAccessor;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
