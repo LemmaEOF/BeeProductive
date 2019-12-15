@@ -4,6 +4,7 @@ import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
 import io.github.alloffabric.beeproductive.block.FeederBlock;
 import io.github.alloffabric.beeproductive.hooks.BeeEntityAccessor;
+import io.github.alloffabric.beeproductive.init.BeeTags;
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.item.Item;
@@ -25,7 +26,7 @@ public abstract class MixinBeeEntity implements BeeEntityAccessor {
 
 	@ModifyArg(method = "initGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/recipe/Ingredient;fromTag(Lnet/minecraft/tag/Tag;)Lnet/minecraft/recipe/Ingredient;"))
 	private Tag<Item> modTemptTag(Tag<Item> original) {
-		return BeeProductive.BEE_TEMPTING;
+		return BeeTags.BEE_TEMPTING;
 	}
 
 	@Override
@@ -35,7 +36,7 @@ public abstract class MixinBeeEntity implements BeeEntityAccessor {
 
 	@ModifyArg(method = "isFlowers", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;matches(Lnet/minecraft/tag/Tag;)Z"))
 	private Tag<Block> modFeedTag(Tag<Block> original) {
-		return BeeProductive.BEE_FEEDING;
+		return BeeTags.BEE_FEEDING;
 	}
 
 	@Mixin(targets = "net.minecraft.entity.passive.BeeEntity.PollinateGoal")

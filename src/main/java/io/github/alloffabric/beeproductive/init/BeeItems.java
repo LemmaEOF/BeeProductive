@@ -12,6 +12,7 @@ public class BeeItems {
 	public static final Item NOCTURNAL_NECTAR = register("nocturnal_nectar", new NectarItem(BeeNectars.NOCTURNAL, new Item.Settings().group(ItemGroup.MISC)));
 	public static final Item WEATHERPROOF_NECTAR = register("weatherproof_nectar", new NectarItem(BeeNectars.WEATHERPROOF, new Item.Settings().group(ItemGroup.MISC)));
 	public static final Item TRANS_NECTAR = register("trans_skin_nectar", new NectarItem(BeeNectars.TRANS_BEE, new Item.Settings().group(ItemGroup.MISC)));
+	public static final Item ENDER_NECTAR = register("ender_nectar", new NectarItem(BeeNectars.ENDER, new Item.Settings().group(ItemGroup.MISC)));
 
 	public static void init() { }
 

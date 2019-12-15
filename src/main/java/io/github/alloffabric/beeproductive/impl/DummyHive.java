@@ -13,28 +13,29 @@ public class DummyHive implements Beehive {
 	public static final DummyHive INSTANCE = new DummyHive();
 	private DummyHive() {}
 
+
 	@Override
-	public int getHoneyLevel(World world, BlockPos pos, BlockState state) {
+	public int getHoneyLevel() {
 		return 0;
 	}
 
 	@Override
-	public void setHoneyLevel(World world, BlockPos pos, BlockState state, int level) {
+	public void setHoneyLevel(int level) {
 
 	}
 
 	@Override
-	public void addHoneyFlavor(World world, BlockPos pos, BlockState state, HoneyFlavor flavor) {
+	public void addHoneyFlavor(HoneyFlavor flavor) {
 
 	}
 
 	@Override
-	public Object2IntMap<HoneyFlavor> getFlavors(World world, BlockPos pos, BlockState state) {
+	public Object2IntMap<HoneyFlavor> getFlavors() {
 		return new Object2IntOpenHashMap<>();
 	}
 
 	@Override
-	public void harvestHoney(World world, BlockPos pos, BlockState state, HoneyFlavor harvested) {
+	public void harvestHoney(HoneyFlavor harvested) {
 
 	}
 }
