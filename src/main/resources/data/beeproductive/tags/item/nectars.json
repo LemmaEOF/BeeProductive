@@ -1,6 +1,11 @@
 {
   "replace": false,
   "values": [
-
+    "beeproductive:nocturnal_nectar",
+    "beeproductive:weatherproof_nectar",
+    "beeproductive:pacifist_nectar",
+    "beeproductive:ender_nectar",
+    "beeproductive:trans_skin_nectar",
+    "beeproductive:nonbinary_skin_nectar"
   ]
 }
