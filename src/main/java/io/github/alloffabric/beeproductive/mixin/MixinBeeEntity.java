@@ -2,7 +2,7 @@ package io.github.alloffabric.beeproductive.mixin;
 
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
-import io.github.alloffabric.beeproductive.block.FeederBlock;
+import io.github.alloffabric.beeproductive.block.BeeFeederBlock;
 import io.github.alloffabric.beeproductive.hooks.BeeEntityAccessor;
 import io.github.alloffabric.beeproductive.init.BeeTags;
 import net.minecraft.block.Block;
@@ -48,8 +48,8 @@ public abstract class MixinBeeEntity implements BeeEntityAccessor {
 			World world = this$0.getEntityWorld();
 			BlockPos pos = this$0.getFlowerPos();
 			BeeComponent component = BeeProductive.BEE_COMPONENT.get(this$0);
-			if (world.getBlockState(pos).getBlock() instanceof FeederBlock) {
-				component.setNectar(((FeederBlock) world.getBlockState(pos).getBlock()).consumeNectar(world, pos));
+			if (world.getBlockState(pos).getBlock() instanceof BeeFeederBlock) {
+				component.setNectar(((BeeFeederBlock) world.getBlockState(pos).getBlock()).consumeNectar(world, pos));
 			}
 		}
 	}

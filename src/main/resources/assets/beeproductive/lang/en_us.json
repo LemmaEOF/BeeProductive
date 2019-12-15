@@ -1,0 +1,20 @@
+{
+  "item.beeproductive.nocturnal_nectar": "Energizing Nectar",
+  "item.beeproductive.weatherproof_nectar": "Protective Nectar",
+  "item.beeproductive.trans_skin_nectar": "Cosmetic Nectar - Trans Flag",
+  "item.beeproductive.ender_nectar": "Ender Nectar",
+
+  "block.beeproductive.bee_feeder": "Bee Feeder",
+
+  "honey.beeproductive.ender": "the End",
+
+  "trait.beeproductive.nocturnal": "Nocturnal",
+  "trait.beeproductive.weatherproof": "Weatherproof",
+  "trait.beeproductive.skin": "Skin",
+
+  "msg.beeproductive.honey_flavor": "The honey tastes like %s",
+  "msg.beeproductive.honey_vanilla": "The honey doesn't have a noticeable taste",
+  "msg.beeproductive.no_honey": "There isn't enough honey to taste yet",
+  "msg.beeproductive.traits": "Current Traits:",
+  "msg.beeproductive.trait.display": " - %s: %s"
+}

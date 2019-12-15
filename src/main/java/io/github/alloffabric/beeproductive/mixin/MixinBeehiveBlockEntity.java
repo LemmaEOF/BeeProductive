@@ -4,7 +4,6 @@ import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
 import io.github.alloffabric.beeproductive.hive.Beehive;
 import io.github.alloffabric.beeproductive.api.HoneyFlavor;
-import io.github.alloffabric.beeproductive.api.Nectar;
 import io.github.alloffabric.beeproductive.hive.BeehiveProvider;
 import io.github.alloffabric.beeproductive.hooks.BeehiveAccessor;
 import io.github.alloffabric.beeproductive.init.BeeNectars;
@@ -29,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Mixin(value = BeeHiveBlockEntity.class, priority = 2000)
@@ -42,11 +42,13 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 
 	@Override
 	public Object2IntMap<HoneyFlavor> beeproductive$getHoneyFlavors() {
+		System.out.println(flavors.keySet().size());
 		return flavors;
 	}
 
 	@Override
 	public void beeproductive$addHoneyFlavor(HoneyFlavor flavor) {
+		System.out.println("Adding flavor " + BeeProductive.HONEY_FLAVORS.getId(flavor).toString());
 		int flavorVal = flavors.getOrDefault(flavor, 0) + 1;
 		flavors.put(flavor, flavorVal);
 	}

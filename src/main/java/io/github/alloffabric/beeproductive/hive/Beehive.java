@@ -54,7 +54,6 @@ public interface Beehive {
 				most = amount;
 			}
 		}
-		harvestHoney(toDrop);
 		return toDrop;
 	}
 

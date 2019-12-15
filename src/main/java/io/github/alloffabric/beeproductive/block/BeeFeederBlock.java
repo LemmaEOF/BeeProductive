@@ -6,8 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class FeederBlock extends Block {
-	public FeederBlock(Settings settings) {
+public class BeeFeederBlock extends Block {
+	public BeeFeederBlock(Settings settings) {
 		super(settings);
 	}
 

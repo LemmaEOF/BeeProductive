@@ -1,7 +1,7 @@
 package io.github.alloffabric.beeproductive.init;
 
 import io.github.alloffabric.beeproductive.BeeProductive;
-import io.github.alloffabric.beeproductive.block.entity.FeederBlockEntity;
+import io.github.alloffabric.beeproductive.block.entity.BeeFeederBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -11,7 +11,7 @@ import net.minecraft.util.registry.Registry;
 import java.util.function.Supplier;
 
 public class BeeBlockEntities {
-	public static final BlockEntityType<FeederBlockEntity> FEEDER_ENTITY = register("bee_feeder", FeederBlockEntity::new, BeeBlocks.BEE_FEEDER);
+	public static final BlockEntityType<BeeFeederBlockEntity> FEEDER_ENTITY = register("bee_feeder", BeeFeederBlockEntity::new, BeeBlocks.BEE_FEEDER);
 
 	public static void init() { }
 

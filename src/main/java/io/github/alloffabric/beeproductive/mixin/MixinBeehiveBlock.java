@@ -5,6 +5,7 @@ import io.github.alloffabric.beeproductive.hive.Beehive;
 import io.github.alloffabric.beeproductive.hive.BeehiveProvider;
 import io.github.alloffabric.beeproductive.hive.SimpleBeehive;
 import io.github.alloffabric.beeproductive.init.BeeHoneys;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.block.BeeHiveBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -98,7 +99,9 @@ public abstract class MixinBeehiveBlock extends Block implements BeehiveProvider
 
 	private static HoneyFlavor getDroppedFlavor(World world, BlockPos pos, BlockState state) {
 		Beehive hive = ((BeehiveProvider)state.getBlock()).getBeehive(world, pos, state);
-		return hive.getFlavorToHarvest();
+		HoneyFlavor flavor = hive.getFlavorToHarvest();
+		hive.harvestHoney(flavor);
+		return flavor;
 	}
 
 }
