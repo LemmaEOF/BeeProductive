@@ -11,6 +11,7 @@ public class BeeNectars {
 	//functional trait nectars
 	public static final Nectar NOCTURNAL = register("nocturnal", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeTraits.NOCTURNAL, true));
 	public static final Nectar WEATHERPROOF = register("weatherproof", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeTraits.WEATHERPROOF, true));
+	public static final Nectar PACIFIST = register("pacifist", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeTraits.PACIFIST, true));
 
 	//aesthetic trait nectars
 	public static final Nectar TRANS_SKIN = register("trans_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/trans_bee")));

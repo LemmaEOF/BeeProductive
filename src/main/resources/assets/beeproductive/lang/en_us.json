@@ -1,8 +1,14 @@
 {
+  "item.beeproductive.bee_swab": "Bee Swab",
   "item.beeproductive.nocturnal_nectar": "Energizing Nectar",
   "item.beeproductive.weatherproof_nectar": "Protective Nectar",
+  "item.beeproductive.pacifist_nectar": "Pacifying Nectar",
   "item.beeproductive.trans_skin_nectar": "Cosmetic Nectar - Trans Flag",
+  "item.beeproductive.nonbinary_skin_nectar": "Cosmetic Nectar - Nonbinary Flag",
   "item.beeproductive.ender_nectar": "Ender Nectar",
+
+  "itemGroup.beeproductive.tools": "Bee Productive: Tools",
+  "itemGroup.beeproductive.nectars": "Bee Productive: Nectars",
 
   "block.beeproductive.bee_feeder": "Bee Feeder",
 

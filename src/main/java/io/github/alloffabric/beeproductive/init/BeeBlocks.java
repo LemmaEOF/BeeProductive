@@ -13,13 +13,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class BeeBlocks {
-	public static final Block BEE_FEEDER = register("bee_feeder", new BeeFeederBlock(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.AXES).nonOpaque().build()));
+	public static final Block BEE_FEEDER = register("bee_feeder", new BeeFeederBlock(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.AXES).nonOpaque().build()), BeeItems.TOOLS_GROUP);
 
 	public static void init() { }
 
-	public static Block register(String name, Block block) {
+	public static Block register(String name, Block block, ItemGroup group) {
 		Block ret =  Registry.register(Registry.BLOCK, new Identifier(BeeProductive.MODID, name), block);
-		Registry.register(Registry.ITEM, new Identifier(BeeProductive.MODID, name), new BlockItem(block, new Item.Settings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier(BeeProductive.MODID, name), new BlockItem(block, new Item.Settings().group(group)));
 		return ret;
 	}
 }
