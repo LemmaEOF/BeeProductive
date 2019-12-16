@@ -53,9 +53,11 @@ dependencies {
 
 	modImplementation "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
 	modImplementation "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-entity:${project.cardinal_version}"
+	modImplementation "io.github.cottonmc:BeeHooks:${project.beehooks_version}"
 
 	include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
 	include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-entity:${project.cardinal_version}"
+	include "io.github.cottonmc:BeeHooks:${project.beehooks_version}"
 
 	modCompileOnly "bee-better:BeeBetter:1.6.0"
 	modRuntime "bee-better:BeeBetter:1.6.0"

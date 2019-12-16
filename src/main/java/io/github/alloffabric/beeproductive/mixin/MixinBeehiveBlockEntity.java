@@ -55,25 +55,6 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 		flavors.clear();
 	}
 
-	//TODO: make libmod to fix incompat with Bee Angry-Est
-	@Redirect(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isNight()Z"))
-	private boolean nightProxy(World world, BlockState state, CompoundTag tag, List<Entity> entities, BeehiveBlockEntity.BeeState beeState) {
-		BeeComponent comp = getComponent(tag);
-		if (comp == null) return world.isNight();
-		if (comp.getTraitValue(BeeProdTraits.NOCTURNAL)) return false;
-		//Bee Angry-Est compat - doesn't actually work sadly
-		else if (tag.getBoolean("Nocturnal")) return world.isDay();
-		else return world.isNight();
-	}
-
-	@Redirect(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isRaining()Z"))
-	private boolean rainProxy(World world, BlockState state, CompoundTag tag, List<Entity> entities, BeehiveBlockEntity.BeeState beeState) {
-		BeeComponent comp = getComponent(tag);
-		if (comp == null) return world.isRaining();
-		if (comp.getTraitValue(BeeProdTraits.WEATHERPROOF)) return false;
-		else return world.isRaining();
-	}
-
 	@Inject(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;onHoneyDelivered()V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
 	private void applyNectarEffects(BlockState state, CompoundTag tag, List<Entity> entities, BeehiveBlockEntity.BeeState beeState, CallbackInfoReturnable<Boolean> info,
 									BlockPos pos, Direction facingDir, Entity entity, BeeEntity bee) {
