@@ -1,9 +1,11 @@
-package io.github.alloffabric.beeproductive.mixin;
+package io.github.alloffabric.beeproductive.mixin.compat.beebetter;
 
+import com.github.draylar.beebetter.entity.ModdedBeehiveBlockEntity;
+import com.github.draylar.beebetter.util.BeeState;
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
-import io.github.alloffabric.beeproductive.api.hive.Beehive;
 import io.github.alloffabric.beeproductive.api.HoneyFlavor;
+import io.github.alloffabric.beeproductive.api.hive.Beehive;
 import io.github.alloffabric.beeproductive.api.hive.BeehiveProvider;
 import io.github.alloffabric.beeproductive.hooks.BeehiveAccessor;
 import io.github.alloffabric.beeproductive.init.BeeProdNectars;
@@ -11,7 +13,6 @@ import io.github.alloffabric.beeproductive.init.BeeProdTraits;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
@@ -23,19 +24,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 
-@Mixin(value = BeehiveBlockEntity.class, priority = 2000)
-public abstract class MixinBeehiveBlockEntity extends BlockEntity implements BeehiveAccessor {
+@Mixin(value = ModdedBeehiveBlockEntity.class)
+public abstract class MixinModdedBeehiveBlockEntity extends BlockEntity implements BeehiveAccessor {
 
 	Object2IntMap<HoneyFlavor> flavors = new Object2IntOpenHashMap<>();
 
-	public MixinBeehiveBlockEntity(BlockEntityType<?> type) {
+	public MixinModdedBeehiveBlockEntity(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -52,12 +55,28 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 
 	@Override
 	public void beeproductive$harvestHoneyFlavor(HoneyFlavor flavor) {
-		flavors.clear();
+		int amount = flavors.getInt(flavor);
+		if (amount > 5) {
+			flavors.put(flavor, amount - 5);
+		} else {
+			int left = 5 - amount;
+			flavors.removeInt(flavor);
+			for (HoneyFlavor newFlav : flavors.keySet()) {
+				int newAmount = flavors.getInt(newFlav);
+				if (newAmount >= left) {
+					flavors.put(newFlav, newAmount - left);
+					break;
+				} else {
+					left = left - newAmount;
+					flavors.removeInt(newFlav);
+				}
+			}
+		}
 	}
 
 	//TODO: make libmod to fix incompat with Bee Angry-Est
 	@Redirect(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isNight()Z"))
-	private boolean nightProxy(World world, BlockState state, CompoundTag tag, List<Entity> entities, BeehiveBlockEntity.BeeState beeState) {
+	private boolean nightProxy(World world, BlockState state, CompoundTag tag, List<Entity> entities, BeeState beeState) {
 		BeeComponent comp = getComponent(tag);
 		if (comp == null) return world.isNight();
 		if (comp.getTraitValue(BeeProdTraits.NOCTURNAL)) return false;
@@ -67,7 +86,7 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 	}
 
 	@Redirect(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isRaining()Z"))
-	private boolean rainProxy(World world, BlockState state, CompoundTag tag, List<Entity> entities, BeehiveBlockEntity.BeeState beeState) {
+	private boolean rainProxy(World world, BlockState state, CompoundTag tag, List<Entity> entities, BeeState beeState) {
 		BeeComponent comp = getComponent(tag);
 		if (comp == null) return world.isRaining();
 		if (comp.getTraitValue(BeeProdTraits.WEATHERPROOF)) return false;
@@ -75,12 +94,15 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 	}
 
 	@Inject(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;onHoneyDelivered()V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-	private void applyNectarEffects(BlockState state, CompoundTag tag, List<Entity> entities, BeehiveBlockEntity.BeeState beeState, CallbackInfoReturnable<Boolean> info,
-									BlockPos pos, Direction facingDir, Entity entity, BeeEntity bee) {
+	private void applyNectarEffects(BlockState state, CompoundTag tag, List<Entity> entities, BeeState beeState, CallbackInfoReturnable<Boolean> info,
+									BlockPos pos, Direction facingDir, BlockPos otherPos, Entity entity) {
 		Beehive hive = ((BeehiveProvider) world.getBlockState(pos).getBlock()).getBeehive(this.world, pos, state);
-		BeeComponent component = BeeProductive.BEE_COMPONENT.get(bee);
-		component.getNectar().onApply(bee, hive);
-		component.setNectar(BeeProdNectars.EMPTY);
+		if (entity instanceof BeeEntity) {
+			BeeEntity bee = (BeeEntity)entity;
+			BeeComponent component = BeeProductive.BEE_COMPONENT.get(bee);
+			component.getNectar().onApply(bee, hive);
+			component.setNectar(BeeProdNectars.EMPTY);
+		}
 	}
 
 	@Inject(method = "toTag", at = @At("RETURN"))

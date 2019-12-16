@@ -1,22 +1,20 @@
-package io.github.alloffabric.beeproductive.mixin;
+package io.github.alloffabric.beeproductive.mixin.compat.beebetter;
 
+import com.github.draylar.beebetter.block.ModdedBeehiveBlock;
+import com.github.draylar.beebetter.registry.BeeItems;
 import io.github.alloffabric.beeproductive.api.HoneyFlavor;
+import io.github.alloffabric.beeproductive.compat.beebetter.ModdedBeehive;
 import io.github.alloffabric.beeproductive.api.hive.Beehive;
 import io.github.alloffabric.beeproductive.api.hive.BeehiveProvider;
-import io.github.alloffabric.beeproductive.api.hive.SimpleBeehive;
 import io.github.alloffabric.beeproductive.init.BeeProdHoneys;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,19 +23,19 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = BeehiveBlock.class)
-public abstract class MixinBeehiveBlock extends Block implements BeehiveProvider {
+@Mixin(ModdedBeehiveBlock.class)
+public abstract class MixinModdedBeehiveBlock extends Block implements BeehiveProvider {
 	private ThreadLocal<BlockState> cachedState = new ThreadLocal<>();
 	private ThreadLocal<World> cachedWorld = new ThreadLocal<>();
 	private ThreadLocal<BlockPos> cachedPos = new ThreadLocal<>();
 
-	public MixinBeehiveBlock(Settings settings) {
+	public MixinModdedBeehiveBlock(Settings settings) {
 		super(settings);
 	}
 
 	@Override
 	public Beehive getBeehive(World world, BlockPos pos, BlockState state) {
-		return new SimpleBeehive(world, pos, state);
+		return new ModdedBeehive(world, pos, state);
 	}
 
 	@Inject(method = "dropHoneycomb", at = @At("HEAD"), cancellable = true)
@@ -49,9 +47,7 @@ public abstract class MixinBeehiveBlock extends Block implements BeehiveProvider
 		for (int i = 0; i < stack.getCount(); i++) {
 			dropStack(world, pos, new ItemStack(stack.getItem()));
 		}
-		if (FabricLoader.getInstance().isModLoaded("beebetter")) {
-			dropStack(world, pos, new ItemStack(Registry.ITEM.get(new Identifier("beebetter", "beeswax_flake"))));
-		}
+		dropStack(world, pos, new ItemStack(BeeItems.BEESWAX_FLAKE));
 		info.cancel();
 	}
 
@@ -89,5 +85,4 @@ public abstract class MixinBeehiveBlock extends Block implements BeehiveProvider
 		hive.harvestHoney(flavor);
 		return flavor;
 	}
-
 }

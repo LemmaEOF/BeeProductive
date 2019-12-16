@@ -10,8 +10,8 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.function.Supplier;
 
-public class BeeBlockEntities {
-	public static final BlockEntityType<BeeFeederBlockEntity> FEEDER_ENTITY = register("bee_feeder", BeeFeederBlockEntity::new, BeeBlocks.BEE_FEEDER);
+public class BeeProdBlockEntities {
+	public static final BlockEntityType<BeeFeederBlockEntity> FEEDER_ENTITY = register("bee_feeder", BeeFeederBlockEntity::new, BeeProdBlocks.BEE_FEEDER);
 
 	public static void init() { }
 

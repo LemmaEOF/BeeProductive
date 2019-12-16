@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 
-public class BeeTags {
+public class BeeProdTags {
 	public static final Tag<Item> BEE_TEMPTING = TagRegistry.item(new Identifier(BeeProductive.MODID, "bee_tempting"));
 	public static final Tag<Block> BEE_FEEDING = TagRegistry.block(new Identifier(BeeProductive.MODID, "bee_feeding"));
 

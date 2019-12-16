@@ -4,7 +4,7 @@ import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
 import io.github.alloffabric.beeproductive.api.Nectar;
 import io.github.alloffabric.beeproductive.api.trait.BeeTrait;
-import io.github.alloffabric.beeproductive.init.BeeNectars;
+import io.github.alloffabric.beeproductive.init.BeeProdNectars;
 import nerdhub.cardinal.components.api.ComponentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundTag;
@@ -22,7 +22,7 @@ public class BeeComponentImpl implements BeeComponent {
 	public BeeComponentImpl(Entity entity) {
 		this.entity = entity;
 		this.traits = new HashMap<>();
-		this.nectar = BeeNectars.EMPTY;
+		this.nectar = BeeProdNectars.EMPTY;
 		for (Identifier id : BeeProductive.BEE_TRAITS.getIds()) {
 			BeeTrait<?> trait = BeeProductive.BEE_TRAITS.get(id);
 			traits.put(trait, trait::getDefaultValue);

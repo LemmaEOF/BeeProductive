@@ -2,7 +2,7 @@ package io.github.alloffabric.beeproductive.mixin;
 
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
-import io.github.alloffabric.beeproductive.init.BeeTraits;
+import io.github.alloffabric.beeproductive.init.BeeProdTraits;
 import net.minecraft.client.render.entity.BeeEntityRenderer;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.util.Identifier;
@@ -17,8 +17,8 @@ public class MixinBeeEntityRenderer {
 	@Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)
 	private void injectCustomSkins(BeeEntity bee, CallbackInfoReturnable<Identifier> info) {
 		BeeComponent comp = BeeProductive.BEE_COMPONENT.get(bee);
-		Identifier id = comp.getTraitValue(BeeTraits.SKIN);
-		if (id.equals(BeeTraits.SKIN.getDefaultValue())) return;
+		Identifier id = comp.getTraitValue(BeeProdTraits.SKIN);
+		if (id.equals(BeeProdTraits.SKIN.getDefaultValue())) return;
 		if (bee.isAngry()) id = new Identifier(id.getNamespace(), id.getPath() + "_angry");
 		if (bee.hasNectar()) id = new Identifier(id.getNamespace(), id.getPath() + "_nectar");
 		info.setReturnValue(new Identifier(id.getNamespace(), id.getPath() + ".png"));

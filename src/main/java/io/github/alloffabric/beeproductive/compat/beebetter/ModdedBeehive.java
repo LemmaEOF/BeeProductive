@@ -1,38 +1,37 @@
-package io.github.alloffabric.beeproductive.hive;
+package io.github.alloffabric.beeproductive.compat.beebetter;
 
+import com.github.draylar.beebetter.block.ModdedBeehiveBlock;
 import io.github.alloffabric.beeproductive.api.HoneyFlavor;
+import io.github.alloffabric.beeproductive.api.hive.Beehive;
 import io.github.alloffabric.beeproductive.hooks.BeehiveAccessor;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.block.BlockState;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-/**
- * An implementation of Beehive based on a standard vanilla BeeHiveBlock and BeeHiveBlockEntitiy.
- */
-public class SimpleBeehive implements Beehive {
+public class ModdedBeehive implements Beehive {
 	private World world;
 	private BlockPos pos;
 	private BlockState state;
+	private ModdedBeehiveBlock block;
 	private BeehiveAccessor accessor;
 
-	public SimpleBeehive(World world, BlockPos pos, BlockState state) {
+	public ModdedBeehive(World world, BlockPos pos, BlockState state) {
 		this.world = world;
 		this.pos = pos;
 		this.state = state;
+		this.block = (ModdedBeehiveBlock)state.getBlock();
 		this.accessor = (BeehiveAccessor)world.getBlockEntity(pos);
 	}
 
 	@Override
 	public int getHoneyLevel() {
-		return state.get(Properties.HONEY_LEVEL);
+		return block.getHoneyLevel(state);
 	}
 
 	@Override
 	public void setHoneyLevel(int level) {
-		world.setBlockState(pos, state.with(Properties.HONEY_LEVEL, level));
-		state = world.getBlockState(pos);
+		block.setHoneyLevel(world, state, pos, level);
 	}
 
 	@Override
@@ -47,6 +46,6 @@ public class SimpleBeehive implements Beehive {
 
 	@Override
 	public void harvestHoney(HoneyFlavor harvested) {
-		accessor.beeproductive$clearHoneyFlavors();
+		accessor.beeproductive$harvestHoneyFlavor(harvested);
 	}
 }

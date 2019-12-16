@@ -35,12 +35,12 @@ public class BeeProductive implements ModInitializer {
 	public void onInitialize() {
 		EntityComponentCallback.event(BeeEntity.class).register((entity, container) -> container.put(BEE_COMPONENT, new BeeComponentImpl(entity)));
 		EntityComponents.setRespawnCopyStrategy(BEE_COMPONENT, RespawnCopyStrategy.ALWAYS_COPY);
-		BeeTraits.init();
-		BeeHoneys.init();
-		BeeNectars.init();
-		BeeBlocks.init();
-		BeeBlockEntities.init();
-		BeeItems.init();
-		BeeTags.init();
+		BeeProdTraits.init();
+		BeeProdHoneys.init();
+		BeeProdNectars.init();
+		BeeProdBlocks.init();
+		BeeProdBlockEntities.init();
+		BeeProdItems.init();
+		BeeProdTags.init();
 	}
 }

@@ -4,9 +4,9 @@ import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
 import io.github.alloffabric.beeproductive.api.HoneyFlavor;
 import io.github.alloffabric.beeproductive.api.trait.BeeTrait;
-import io.github.alloffabric.beeproductive.hive.Beehive;
-import io.github.alloffabric.beeproductive.hive.BeehiveProvider;
-import io.github.alloffabric.beeproductive.init.BeeHoneys;
+import io.github.alloffabric.beeproductive.api.hive.Beehive;
+import io.github.alloffabric.beeproductive.api.hive.BeehiveProvider;
+import io.github.alloffabric.beeproductive.init.BeeProdHoneys;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.BeeEntity;
@@ -37,7 +37,7 @@ public class BeeSwabItem extends Item {
 			Beehive hive = ((BeehiveProvider)state.getBlock()).getBeehive(world, pos, state);
 			if (hive.getHoneyLevel() >= 5) {
 				HoneyFlavor flavor = hive.getFlavorToHarvest();
-				if (flavor != BeeHoneys.VANILLA) {
+				if (flavor != BeeProdHoneys.VANILLA) {
 					Identifier flavorId = BeeProductive.HONEY_FLAVORS.getId(flavor);
 					context.getPlayer().addChatMessage(new TranslatableText("msg.beeproductive.honey_flavor", new TranslatableText("honey." + flavorId.getNamespace() + "." + flavorId.getPath()).asString()), true);
 				} else {

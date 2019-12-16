@@ -1,4 +1,4 @@
-package io.github.alloffabric.beeproductive.hive;
+package io.github.alloffabric.beeproductive.api.hive;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;

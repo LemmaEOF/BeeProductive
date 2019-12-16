@@ -17,7 +17,8 @@
     ]
   },
   "mixins": [
-    "mixins.beeproductive.json"
+    "mixins.beeproductive.json",
+    "mixins.beeproductive_beebettercompat.json"
   ],
   "depends": {
     "fabricloader": ">=0.4.0"

@@ -1,7 +1,7 @@
-package io.github.alloffabric.beeproductive.hive;
+package io.github.alloffabric.beeproductive.api.hive;
 
 import io.github.alloffabric.beeproductive.api.HoneyFlavor;
-import io.github.alloffabric.beeproductive.init.BeeHoneys;
+import io.github.alloffabric.beeproductive.init.BeeProdHoneys;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 
 /**
@@ -44,7 +44,7 @@ public interface Beehive {
 	 */
 	default HoneyFlavor getFlavorToHarvest() {
 		Object2IntMap<HoneyFlavor> flavors = getFlavors();
-		HoneyFlavor toDrop = BeeHoneys.VANILLA;
+		HoneyFlavor toDrop = BeeProdHoneys.VANILLA;
 		int most = 0;
 		for (HoneyFlavor flavor : flavors.keySet()) {
 			int amount = flavors.getInt(flavor);

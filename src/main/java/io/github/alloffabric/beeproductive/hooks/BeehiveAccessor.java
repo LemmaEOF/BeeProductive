@@ -8,5 +8,5 @@ public interface BeehiveAccessor {
 
 	void beeproductive$addHoneyFlavor(HoneyFlavor flavor);
 
-	void beeproductive$clearHoneyFlavors();
+	void beeproductive$harvestHoneyFlavor(HoneyFlavor flavor);
 }

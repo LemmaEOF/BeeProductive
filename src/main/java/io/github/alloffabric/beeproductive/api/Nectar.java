@@ -1,6 +1,6 @@
 package io.github.alloffabric.beeproductive.api;
 
-import io.github.alloffabric.beeproductive.hive.Beehive;
+import io.github.alloffabric.beeproductive.api.hive.Beehive;
 import net.minecraft.entity.passive.BeeEntity;
 
 /**

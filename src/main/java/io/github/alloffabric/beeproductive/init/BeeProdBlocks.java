@@ -12,8 +12,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class BeeBlocks {
-	public static final Block BEE_FEEDER = register("bee_feeder", new BeeFeederBlock(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.AXES).nonOpaque().build()), BeeItems.TOOLS_GROUP);
+public class BeeProdBlocks {
+	public static final Block BEE_FEEDER = register("bee_feeder", new BeeFeederBlock(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.AXES).nonOpaque().build()), BeeProdItems.TOOLS_GROUP);
 
 	public static void init() { }
 

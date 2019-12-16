@@ -2,11 +2,10 @@ package io.github.alloffabric.beeproductive.mixin;
 
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
-import io.github.alloffabric.beeproductive.api.trait.BeeTrait;
 import io.github.alloffabric.beeproductive.block.BeeFeederBlock;
 import io.github.alloffabric.beeproductive.hooks.BeeEntityAccessor;
-import io.github.alloffabric.beeproductive.init.BeeTags;
-import io.github.alloffabric.beeproductive.init.BeeTraits;
+import io.github.alloffabric.beeproductive.init.BeeProdTags;
+import io.github.alloffabric.beeproductive.init.BeeProdTraits;
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.item.Item;
@@ -29,7 +28,7 @@ public abstract class MixinBeeEntity implements BeeEntityAccessor {
 
 	@ModifyArg(method = "initGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/recipe/Ingredient;fromTag(Lnet/minecraft/tag/Tag;)Lnet/minecraft/recipe/Ingredient;"))
 	private Tag<Item> modTemptTag(Tag<Item> original) {
-		return BeeTags.BEE_TEMPTING;
+		return BeeProdTags.BEE_TEMPTING;
 	}
 
 	@Override
@@ -39,13 +38,13 @@ public abstract class MixinBeeEntity implements BeeEntityAccessor {
 
 	@ModifyArg(method = "isFlowers", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;matches(Lnet/minecraft/tag/Tag;)Z"))
 	private Tag<Block> modFeedTag(Tag<Block> original) {
-		return BeeTags.BEE_FEEDING;
+		return BeeProdTags.BEE_FEEDING;
 	}
 
 	@Inject(method = "isAngry", at = @At("HEAD"))
 	private void modAnger(CallbackInfoReturnable<Boolean> info) {
 		BeeComponent component = BeeProductive.BEE_COMPONENT.get(this);
-		if (component.getTraitValue(BeeTraits.PACIFIST)) info.setReturnValue(false);
+		if (component.getTraitValue(BeeProdTraits.PACIFIST)) info.setReturnValue(false);
 	}
 
 	@Mixin(targets = "net.minecraft.entity.passive.BeeEntity.PollinateGoal")

@@ -7,7 +7,7 @@ import io.github.alloffabric.beeproductive.api.trait.IdentifierBeeTrait;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class BeeTraits {
+public class BeeProdTraits {
 	//functional traits
 	public static final BeeTrait<Boolean> NOCTURNAL = register("nocturnal", new BooleanBeeTrait(false));
 	public static final BeeTrait<Boolean> WEATHERPROOF = register("weatherproof", new BooleanBeeTrait(false));
