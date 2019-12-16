@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "LDL",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:coals"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "D": {
+      "item": "minecraft:honeycomb"
+    }
+  },
+  "result": {
+    "item": "beeproductive:pacifist_nectar",
+    "count": 3
+  }
+}

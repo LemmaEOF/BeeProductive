@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#L#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "L": {
+      "item": "minecraft:honeycomb"
+    }
+  },
+  "result": {
+    "item": "beeproductive:nocturnal_nectar",
+    "count": 3
+  }
+}

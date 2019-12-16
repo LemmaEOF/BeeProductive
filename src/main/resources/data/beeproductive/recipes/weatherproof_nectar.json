@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#L#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:bamboo"
+    },
+    "L": {
+      "item": "minecraft:honeycomb"
+    }
+  },
+  "result": {
+    "item": "beeproductive:weatherproof_nectar",
+    "count": 1
+  }
+}
