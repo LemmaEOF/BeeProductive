@@ -2,8 +2,8 @@ package io.github.alloffabric.beeproductive.init;
 
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
-import io.github.cottonmc.beehooks.api.BeeTimeCheckCallback;
-import io.github.cottonmc.beehooks.api.BeeWeatherCheckCallback;
+import io.github.cottonmc.beecompatible.api.BeeTimeCheckCallback;
+import io.github.cottonmc.beecompatible.api.BeeWeatherCheckCallback;
 
 public class BeeProdEvents {
 
