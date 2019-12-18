@@ -12,6 +12,14 @@
 
   "block.beeproductive.bee_feeder": "Bee Feeder",
 
+  "nectar.beeproductive.empty": "none",
+  "nectar.beeproductive.nocturnal": "Energizing Nectar",
+  "nectar.beeproductive.weatherproof": "Protective Nectar",
+  "nectar.beeproductive.pactifist": "Pacifying Nectar",
+  "nectar.beeproductive.trans_skin": "Cosmetic Nectar - Trans Flag",
+  "nectar.beeproductive.nonbinary_skin": "Cosmetic Nectar - Nonbinary Flag",
+  "nectar.beeproductive.ender": "Ender Nectar",
+
   "honey.beeproductive.ender": "the End",
 
   "trait.beeproductive.nocturnal": "Nocturnal",
@@ -22,6 +30,7 @@
   "msg.beeproductive.honey_flavor": "The honey tastes like %s",
   "msg.beeproductive.honey_vanilla": "The honey doesn't have a noticeable taste",
   "msg.beeproductive.no_honey": "There isn't enough honey to taste yet",
+  "msg.beeproductive.nectar": "Current Nectar: %s",
   "msg.beeproductive.traits": "Current Traits:",
   "msg.beeproductive.trait.display": " - %s: %s"
 }

@@ -3,6 +3,7 @@ package io.github.alloffabric.beeproductive.item;
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
 import io.github.alloffabric.beeproductive.api.HoneyFlavor;
+import io.github.alloffabric.beeproductive.api.Nectar;
 import io.github.alloffabric.beeproductive.api.trait.BeeTrait;
 import io.github.alloffabric.beeproductive.api.hive.Beehive;
 import io.github.alloffabric.beeproductive.api.hive.BeehiveProvider;
@@ -55,6 +56,9 @@ public class BeeSwabItem extends Item {
 	public boolean useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
 		if (!user.world.isClient && entity instanceof BeeEntity) {
 			BeeComponent component = BeeProductive.BEE_COMPONENT.get(entity);
+			Nectar nectar = component.getNectar();
+			Identifier nectarId = BeeProductive.NECTARS.getId(nectar);
+			user.addChatMessage(new TranslatableText("msg.beeproductive.nectar", new TranslatableText("nectar." + nectarId.getNamespace() + "." + nectarId.getPath())), false);
 			user.addChatMessage(new TranslatableText("msg.beeproductive.traits"), false);
 			for (Identifier id : BeeProductive.BEE_TRAITS.getIds()) {
 				BeeTrait<?> trait = BeeProductive.BEE_TRAITS.get(id);

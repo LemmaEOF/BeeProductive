@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class BeeProdBlocks {
-	public static final Block BEE_FEEDER = register("bee_feeder", new BeeFeederBlock(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.AXES).nonOpaque().build()), BeeProdItems.TOOLS_GROUP);
+	public static final Block BEE_FEEDER = register("bee_feeder", new BeeFeederBlock(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.AXES).nonOpaque().noCollision().build()), BeeProdItems.TOOLS_GROUP);
 
 	public static void init() { }
 

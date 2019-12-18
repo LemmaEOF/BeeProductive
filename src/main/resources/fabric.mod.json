@@ -14,6 +14,9 @@
   "entrypoints": {
     "main": [
       "io.github.alloffabric.beeproductive.BeeProductive"
+    ],
+    "client": [
+      "io.github.alloffabric.beeproductive.BeeProductiveClient"
     ]
   },
   "mixins": [

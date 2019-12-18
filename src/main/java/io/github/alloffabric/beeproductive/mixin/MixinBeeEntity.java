@@ -7,19 +7,29 @@ import io.github.alloffabric.beeproductive.hooks.BeeEntityAccessor;
 import io.github.alloffabric.beeproductive.init.BeeProdTags;
 import io.github.alloffabric.beeproductive.init.BeeProdTraits;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.TallPlantBlock;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.item.Item;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Collection;
+import java.util.function.Predicate;
 
 @Mixin(BeeEntity.class)
 public abstract class MixinBeeEntity implements BeeEntityAccessor {
@@ -47,17 +57,35 @@ public abstract class MixinBeeEntity implements BeeEntityAccessor {
 		if (component.getTraitValue(BeeProdTraits.PACIFIST)) info.setReturnValue(false);
 	}
 
-	@Mixin(targets = "net.minecraft.entity.passive.BeeEntity.PollinateGoal")
+	@Mixin(targets = "net.minecraft.entity.passive.BeeEntity$PollinateGoal")
 	public static abstract class MixinPollinateGoal {
-		@Shadow @Final private BeeEntity this$0;
+		@Shadow @Final private BeeEntity field_20377;
 
-		@Inject(method = "stop", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;setHasNectar(Z)V"))
+		@Shadow @Final @Mutable
+		private Predicate<BlockState> flowerPredicate = (state) -> {
+			if (state.matches(BlockTags.TALL_FLOWERS)) {
+				if (state.getBlock() == Blocks.SUNFLOWER) {
+					return state.get(TallPlantBlock.HALF) == DoubleBlockHalf.UPPER;
+				} else {
+					return true;
+				}
+			} else {
+				return state.matches(BeeProdTags.BEE_FEEDING);
+			}
+		};
+
+		@Shadow protected abstract boolean completedPollination();
+
+		@Inject(method = "stop", at = @At("HEAD"))
 		private void applyNectar(CallbackInfo info) {
-			World world = this$0.getEntityWorld();
-			BlockPos pos = this$0.getFlowerPos();
-			BeeComponent component = BeeProductive.BEE_COMPONENT.get(this$0);
-			if (world.getBlockState(pos).getBlock() instanceof BeeFeederBlock) {
-				component.setNectar(((BeeFeederBlock) world.getBlockState(pos).getBlock()).consumeNectar(world, pos));
+			World world = field_20377.getEntityWorld();
+			BlockPos pos = field_20377.getFlowerPos();
+			BeeComponent component = BeeProductive.BEE_COMPONENT.get(field_20377);
+			System.out.println(Registry.BLOCK.getId(world.getBlockState(pos).getBlock()));
+			if (this.completedPollination()) {
+				if (world.getBlockState(pos).getBlock() instanceof BeeFeederBlock) {
+					component.setNectar(((BeeFeederBlock) world.getBlockState(pos).getBlock()).consumeNectar(world, pos));
+				}
 			}
 		}
 	}
