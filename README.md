@@ -15,3 +15,5 @@ See the [LICENSE file](LICENSE) for more details.
 
 Bee Productive is a mod that adds more functionality to bees in Minecraft 1.15 and beyond. It adds a traits system for bees,
 nectars to modify bee traits, and honey flavors for alternate rewards from beekeeping. It is currently in development.
+
+To participate in development, contact @B0undarybreaker on twitter, @B0undarybreaker#2106 on Discord, or join the [All Of Fabric server](https://discord.gg/6rkdm48).
