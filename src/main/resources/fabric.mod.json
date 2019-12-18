@@ -4,11 +4,11 @@
   "version": "${version}",
 
   "name": "Bee Productive",
-  "icon": "assets/starter/icon.png",
+  "icon": "assets/beeproductive/icon.png",
   "description": "Traits and production for bees",
   "license": "MIT",
   "contact": {
-    "sources": "https://github.com/CottonMC/FabricStarter"
+    "sources": "https://github.com/AllOfFabric/BeeProductive"
   },
   "environment": "*",
   "entrypoints": {
