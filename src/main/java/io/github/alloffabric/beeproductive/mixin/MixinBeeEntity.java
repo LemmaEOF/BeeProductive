@@ -81,8 +81,7 @@ public abstract class MixinBeeEntity implements BeeEntityAccessor {
 			World world = field_20377.getEntityWorld();
 			BlockPos pos = field_20377.getFlowerPos();
 			BeeComponent component = BeeProductive.BEE_COMPONENT.get(field_20377);
-			System.out.println(Registry.BLOCK.getId(world.getBlockState(pos).getBlock()));
-			if (this.completedPollination()) {
+			if (this.completedPollination() && pos != null) {
 				if (world.getBlockState(pos).getBlock() instanceof BeeFeederBlock) {
 					component.setNectar(((BeeFeederBlock) world.getBlockState(pos).getBlock()).consumeNectar(world, pos));
 				}

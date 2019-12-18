@@ -14,6 +14,7 @@ public class BeeProdTraits {
 	public static final BeeTrait<Boolean> PACIFIST = register("pacifist", new BooleanBeeTrait(false));
 
 	//aesthetic traits
+	//TODO: register skins / provide more info about them somehow?
 	public static final BeeTrait<Identifier> SKIN = register("skin", new IdentifierBeeTrait(new Identifier("textures/entity/bee/bee")));
 
 	public static void init() { }

@@ -38,4 +38,9 @@ public class InstantNectarItem extends Item {
 	public Nectar getNectar() {
 		return nectar;
 	}
+
+	@Override
+	public boolean hasEnchantmentGlint(ItemStack stack) {
+		return true;
+	}
 }

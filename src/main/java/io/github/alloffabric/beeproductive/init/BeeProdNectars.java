@@ -16,6 +16,10 @@ public class BeeProdNectars {
 	//aesthetic trait nectars
 	public static final Nectar TRANS_SKIN = register("trans_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeProdTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/trans_bee")));
 	public static final Nectar NONBINARY_SKIN = register("nonbinary_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeProdTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/nonbinary_bee")));
+	public static final Nectar GAY_SKIN = register("gay_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeProdTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/gay_bee")));
+	public static final Nectar LESBIAN_SKIN = register("lesbian_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeProdTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/lesbian_bee")));
+	public static final Nectar BI_SKIN = register("bi_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeProdTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/bi_bee")));
+	public static final Nectar PAN_SKIN = register("pan_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeProdTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/pan_bee")));
 
 	//honey flavor nectars
 	public static final Nectar ENDER = register("ender", (bee, hive) -> hive.addHoneyFlavor(BeeProdHoneys.ENDER));
