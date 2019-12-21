@@ -43,5 +43,6 @@ public class BeeProductive implements ModInitializer {
 		BeeProdItems.init();
 		BeeProdTags.init();
 		BeeProdEvents.init();
+		BeeProdLoot.init();
 	}
 }
