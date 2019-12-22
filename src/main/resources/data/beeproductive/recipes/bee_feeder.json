@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "_P_",
+    " S "
+  ],
+  "key": {
+    "_": {
+      "item": "minecraft:smooth_stone_slab"
+    },
+    "P": {
+      "tag": "minecraft:small_flowers"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone"
+    }
+  },
+  "result": {
+    "item": "beeproductive:bee_feeder",
+    "count": 1
+  }
+}

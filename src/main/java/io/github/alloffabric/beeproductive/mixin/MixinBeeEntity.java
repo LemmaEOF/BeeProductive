@@ -2,6 +2,7 @@ package io.github.alloffabric.beeproductive.mixin;
 
 import io.github.alloffabric.beeproductive.BeeProductive;
 import io.github.alloffabric.beeproductive.api.BeeComponent;
+import io.github.alloffabric.beeproductive.api.trait.BeeTrait;
 import io.github.alloffabric.beeproductive.block.BeeFeederBlock;
 import io.github.alloffabric.beeproductive.hooks.BeeEntityAccessor;
 import io.github.alloffabric.beeproductive.init.BeeProdTags;
@@ -11,10 +12,14 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TallPlantBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -29,10 +34,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Collection;
+import java.util.Random;
 import java.util.function.Predicate;
 
 @Mixin(BeeEntity.class)
-public abstract class MixinBeeEntity implements BeeEntityAccessor {
+public abstract class MixinBeeEntity extends LivingEntity implements BeeEntityAccessor {
+
+	protected MixinBeeEntity(EntityType<? extends LivingEntity> type, World world) {
+		super(type, world);
+	}
 
 	@Shadow protected abstract void setHasNectar(boolean hasNectar);
 
@@ -55,6 +65,25 @@ public abstract class MixinBeeEntity implements BeeEntityAccessor {
 	private void modAnger(CallbackInfoReturnable<Boolean> info) {
 		BeeComponent component = BeeProductive.BEE_COMPONENT.get(this);
 		if (component.getTraitValue(BeeProdTraits.PACIFIST)) info.setReturnValue(false);
+	}
+
+	@Inject(method = "createChild", at = @At("RETURN"))
+	@SuppressWarnings("unchecked")
+	private void spawnChildBee(PassiveEntity partner, CallbackInfoReturnable<BeeEntity> info) {
+		if (partner instanceof BeeEntity) {
+			Random random = new Random();
+			BeeComponent myComp = BeeProductive.BEE_COMPONENT.get(this);
+			BeeComponent partnerComp = BeeProductive.BEE_COMPONENT.get(partner);
+			BeeComponent childComp = BeeProductive.BEE_COMPONENT.get(info.getReturnValue());
+			for (Identifier id : BeeProductive.BEE_TRAITS.getIds()) {
+				BeeTrait trait = BeeProductive.BEE_TRAITS.get(id);
+				if (random.nextBoolean()) {
+					childComp.setTraitValue(trait, myComp.getTraitValue(trait));
+				} else {
+					childComp.setTraitValue(trait, partnerComp.getTraitValue(trait));
+				}
+			}
+		}
 	}
 
 	@Mixin(targets = "net.minecraft.entity.passive.BeeEntity$PollinateGoal")

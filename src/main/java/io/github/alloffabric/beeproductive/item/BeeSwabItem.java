@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -58,7 +59,13 @@ public class BeeSwabItem extends Item {
 			BeeComponent component = BeeProductive.BEE_COMPONENT.get(entity);
 			Nectar nectar = component.getNectar();
 			Item nectarItem = NectarItem.NECTAR_MAP.get(nectar);
-			user.addChatMessage(new TranslatableText("msg.beeproductive.nectar", nectarItem.getName().formatted(Formatting.YELLOW)), false);
+			Text nectarText;
+			if (nectarItem != null) {
+				nectarText = new TranslatableText(nectarItem.getTranslationKey()).formatted(Formatting.YELLOW);
+			} else {
+				nectarText = new TranslatableText("nectar.beeproductive.none").formatted(Formatting.YELLOW);
+			}
+			user.addChatMessage(new TranslatableText("msg.beeproductive.nectar", nectarText), false);
 			user.addChatMessage(new TranslatableText("msg.beeproductive.traits"), false);
 			for (Identifier id : BeeProductive.BEE_TRAITS.getIds()) {
 				BeeTrait<?> trait = BeeProductive.BEE_TRAITS.get(id);
