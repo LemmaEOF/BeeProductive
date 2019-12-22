@@ -76,7 +76,7 @@ public abstract class MixinBeeEntity implements BeeEntityAccessor {
 
 		@Shadow protected abstract boolean completedPollination();
 
-		@Inject(method = "stop", at = @At("HEAD"))
+		@Inject(method = "Lnet/minecraft/entity/passive/BeeEntity$PollinateGoal;stop()V", at = @At("HEAD"))
 		private void applyNectar(CallbackInfo info) {
 			World world = field_20377.getEntityWorld();
 			BlockPos pos = field_20377.getFlowerPos();

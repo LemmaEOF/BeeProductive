@@ -38,7 +38,7 @@ public abstract class MixinModdedBeehiveBlock extends Block implements BeehivePr
 		return new ModdedBeehive(world, pos, state);
 	}
 
-	@Inject(method = "dropHoneycomb", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "dropHoneycomb", at = @At("HEAD"), cancellable = true, remap = false)
 	private static void dropFlavoredCombs(World world, BlockPos pos, CallbackInfo info) {
 		BlockState state = world.getBlockState(pos);
 		HoneyFlavor toDrop = getDroppedFlavor(world, pos, state);
