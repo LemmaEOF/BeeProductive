@@ -61,7 +61,7 @@ public abstract class MixinBeeEntity extends LivingEntity implements BeeEntityAc
 		return BeeProdTags.BEE_FEEDING;
 	}
 
-	@Inject(method = "isAngry", at = @At("HEAD"))
+	@Inject(method = "isAngry", at = @At("HEAD"), cancellable = true)
 	private void modAnger(CallbackInfoReturnable<Boolean> info) {
 		BeeComponent component = BeeProductive.BEE_COMPONENT.get(this);
 		if (component.getTraitValue(BeeProdTraits.PACIFIST)) info.setReturnValue(false);

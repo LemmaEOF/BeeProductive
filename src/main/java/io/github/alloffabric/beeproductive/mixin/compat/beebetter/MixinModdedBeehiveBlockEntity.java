@@ -29,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mixin(value = ModdedBeehiveBlockEntity.class)
 public abstract class MixinModdedBeehiveBlockEntity extends BlockEntity implements BeehiveAccessor {
@@ -71,12 +72,12 @@ public abstract class MixinModdedBeehiveBlockEntity extends BlockEntity implemen
 		}
 	}
 
-	@Inject(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;onHoneyDelivered()V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, remap = false)
-	private void applyNectarEffects(BlockState state, CompoundTag tag, List<Entity> entities, BeeState beeState, CallbackInfoReturnable<Boolean> info,
-									BlockPos pos, Direction facingDir, BlockPos otherPos, Entity entity) {
+	@Inject(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;onHoneyDelivered()V"), remap = false)
+	private void applyNectarEffects(BlockState state, CompoundTag tag, List<Entity> entities, BeeState beeState, CallbackInfoReturnable<Boolean> info) {
 		Beehive hive = ((BeehiveProvider) world.getBlockState(pos).getBlock()).getBeehive(this.world, pos, state);
-		if (entity instanceof BeeEntity) {
-			BeeEntity bee = (BeeEntity)entity;
+		Optional<Entity> entity = EntityType.getEntityFromTag(tag, world);
+		if (entity.isPresent() && entity.get() instanceof BeeEntity) {
+			BeeEntity bee = (BeeEntity)entity.get();
 			BeeComponent component = BeeProductive.BEE_COMPONENT.get(bee);
 			component.getNectar().onApply(bee, hive);
 			component.setNectar(BeeProdNectars.EMPTY);
