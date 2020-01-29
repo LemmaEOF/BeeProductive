@@ -9,8 +9,8 @@ import net.minecraft.loot.entry.ItemEntry;
 public class BeeProdLoot {
 
 	public static void init() {
-		LootTableLoadingCallback.EVENT.register(((resourceManager, lootManager, id, supplier, setter) -> {
-			if (id.getPath().contains("chest")) {
+		LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, supplier, setter) -> {
+			if (id.getPath().contains("chests") && !id.getPath().contains("village")) {
 				FabricLootPoolBuilder builder = FabricLootPoolBuilder.builder();
 				builder.withRolls(UniformLootTableRange.between(0, 5));
 				builder.withCondition(RandomChanceLootCondition.builder(0.5f));
@@ -22,6 +22,6 @@ public class BeeProdLoot {
 				builder.withEntry(ItemEntry.builder(BeeProdItems.PAN_INSTANT_NECTAR));
 				supplier.withPool(builder);
 			}
-		}));
+		});
 	}
 }

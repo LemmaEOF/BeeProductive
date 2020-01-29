@@ -72,7 +72,7 @@ public abstract class MixinModdedBeehiveBlockEntity extends BlockEntity implemen
 		}
 	}
 
-	@Inject(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;onHoneyDelivered()V"), remap = false)
+	@Inject(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;onHoneyDelivered()V", remap = true), remap = false)
 	private void applyNectarEffects(BlockState state, CompoundTag tag, List<Entity> entities, BeeState beeState, CallbackInfoReturnable<Boolean> info) {
 		Beehive hive = ((BeehiveProvider) world.getBlockState(pos).getBlock()).getBeehive(this.world, pos, state);
 		Optional<Entity> entity = EntityType.getEntityFromTag(tag, world);
