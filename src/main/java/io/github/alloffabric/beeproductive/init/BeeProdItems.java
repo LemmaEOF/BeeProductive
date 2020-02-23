@@ -27,6 +27,7 @@ public class BeeProdItems {
 	public static final Item LESBIAN_NECTAR = register("lesbian_skin_nectar", new NectarItem(BeeProdNectars.LESBIAN_SKIN, new Item.Settings().group(NECTAR_GROUP)));
 	public static final Item BI_NECTAR = register("bi_skin_nectar", new NectarItem(BeeProdNectars.BI_SKIN, new Item.Settings().group(NECTAR_GROUP)));
 	public static final Item PAN_NECTAR = register("pan_skin_nectar", new NectarItem(BeeProdNectars.PAN_SKIN, new Item.Settings().group(NECTAR_GROUP)));
+	public static final Item ACE_NECTAR = register("ace_skin_nectar", new NectarItem(BeeProdNectars.ACE_SKIN, new Item.Settings().group(NECTAR_GROUP)));
 	public static final Item ENDER_NECTAR = register("ender_nectar", new NectarItem(BeeProdNectars.ENDER, new Item.Settings().group(NECTAR_GROUP)));
 
 	//instant nectars
@@ -36,6 +37,7 @@ public class BeeProdItems {
 	public static final Item LESBIAN_INSTANT_NECTAR = register("lesbian_skin_instant_nectar", new InstantNectarItem(BeeProdNectars.LESBIAN_SKIN, new Item.Settings().group(NECTAR_GROUP)));
 	public static final Item BI_INSTANT_NECTAR = register("bi_skin_instant_nectar", new InstantNectarItem(BeeProdNectars.BI_SKIN, new Item.Settings().group(NECTAR_GROUP)));
 	public static final Item PAN_INSTANT_NECTAR = register("pan_skin_instant_nectar", new InstantNectarItem(BeeProdNectars.PAN_SKIN, new Item.Settings().group(NECTAR_GROUP)));
+	public static final Item ACE_INSTANT_NECTAR = register("ace_skin_instant_nectar", new InstantNectarItem(BeeProdNectars.ACE_SKIN, new Item.Settings().group(NECTAR_GROUP)));
 
 	//tools
 	public static final Item BEE_SWAB = register("bee_swab", new BeeSwabItem(new Item.Settings().group(TOOLS_GROUP)));

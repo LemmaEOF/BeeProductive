@@ -20,6 +20,7 @@ public class BeeProdNectars {
 	public static final Nectar LESBIAN_SKIN = register("lesbian_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeProdTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/lesbian_bee")));
 	public static final Nectar BI_SKIN = register("bi_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeProdTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/bi_bee")));
 	public static final Nectar PAN_SKIN = register("pan_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeProdTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/pan_bee")));
+	public static final Nectar ACE_SKIN = register("ace_skin", (bee, hive) -> BeeProductive.BEE_COMPONENT.get(bee).setTraitValue(BeeProdTraits.SKIN, new Identifier(BeeProductive.MODID, "textures/entity/bee/ace_bee")));
 
 	//honey flavor nectars
 	public static final Nectar ENDER = register("ender", (bee, hive) -> hive.addHoneyFlavor(BeeProdHoneys.ENDER));

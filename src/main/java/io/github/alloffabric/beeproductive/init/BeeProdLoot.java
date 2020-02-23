@@ -20,6 +20,7 @@ public class BeeProdLoot {
 				builder.withEntry(ItemEntry.builder(BeeProdItems.LESBIAN_INSTANT_NECTAR));
 				builder.withEntry(ItemEntry.builder(BeeProdItems.BI_INSTANT_NECTAR));
 				builder.withEntry(ItemEntry.builder(BeeProdItems.PAN_INSTANT_NECTAR));
+				builder.withEntry(ItemEntry.builder(BeeProdItems.ACE_INSTANT_NECTAR));
 				supplier.withPool(builder);
 			}
 		});
