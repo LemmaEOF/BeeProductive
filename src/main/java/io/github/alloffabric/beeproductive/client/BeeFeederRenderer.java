@@ -25,7 +25,7 @@ public class BeeFeederRenderer extends BlockEntityRenderer<BeeFeederBlockEntity>
 		if (!stack.isEmpty()) {
 			matrices.push();
 			matrices.translate(.5, 5/16f, .5);
-			if (renderer.getHeldItemModel(stack, blockEntity.getWorld(), null).hasDepthInGui()) {
+			if (renderer.getHeldItemModel(stack, blockEntity.getWorld(), null).hasDepth()) {
 				matrices.translate(0.0, -0.03, 0.0);
 				matrices.multiply(Vector3f.NEGATIVE_X.getDegreesQuaternion(-90.0f));
 				matrices.scale(.2f, .2f, .2f);
@@ -35,7 +35,7 @@ public class BeeFeederRenderer extends BlockEntityRenderer<BeeFeederBlockEntity>
 				matrices.multiply(Vector3f.NEGATIVE_X.getDegreesQuaternion(90.0f));
 				matrices.scale(.14f, .14f, .14f);
 			}
-			renderer.renderItem(stack, ModelTransformation.Type.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+			renderer.renderItem(stack, ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
 			matrices.pop();
 		}
 	}
