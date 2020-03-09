@@ -28,6 +28,7 @@ repositories {
 	maven { url "https://maven.abusedmaster.xyz" }
 	maven { url "https://minecraft.curseforge.com/api/maven" }
 	maven { url "https://jitpack.io" }
+	maven { url = "https://maven.onyxstudios.dev" }
 }
 
 dependencies {
