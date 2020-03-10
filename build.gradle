@@ -28,6 +28,7 @@ repositories {
 	maven { url "https://maven.abusedmaster.xyz" }
 	maven { url "https://minecraft.curseforge.com/api/maven" }
 	maven { url "https://jitpack.io" }
+	maven { url = "https://maven.onyxstudios.dev" }
 }
 
 dependencies {
@@ -48,7 +49,7 @@ dependencies {
 	modCompileOnly "bee-better:BeeBetter:1.6.0"
 	modRuntime "bee-better:BeeBetter:1.6.0"
 
-	modRuntime ("io.github.cottonmc:LibCD:2.0.1+1.15") {transitive = false}
+	modRuntime ("io.github.cottonmc:LibCD:2.3.0+1.15.2") {transitive = false}
 	modRuntime ("io.github.cottonmc:Jankson-Fabric:2.0.1+j1.2.0") {transitive = false}
 }
 

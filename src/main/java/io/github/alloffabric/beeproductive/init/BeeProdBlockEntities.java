@@ -16,6 +16,6 @@ public class BeeProdBlockEntities {
 	public static void init() { }
 
 	public static final <T extends BlockEntity> BlockEntityType<T> register(String name, Supplier<T> supplier, Block... blocks) {
-		return Registry.register(Registry.BLOCK_ENTITY, new Identifier(BeeProductive.MODID, name), BlockEntityType.Builder.create(supplier, blocks).build(null));
+		return Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(BeeProductive.MODID, name), BlockEntityType.Builder.create(supplier, blocks).build(null));
 	}
 }
