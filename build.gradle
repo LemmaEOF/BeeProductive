@@ -25,8 +25,7 @@ repositories {
 	mavenCentral()
 	maven { url "http://maven.fabricmc.net/" }
 	maven { url "http://server.bbkr.space:8081/artifactory/libs-release" }
-	maven { url "https://maven.abusedmaster.xyz" }
-	maven { url "https://minecraft.curseforge.com/api/maven" }
+	maven { url "https://dl.bintray.com/ladysnake/libs" }
 	maven { url "https://jitpack.io" }
 	maven { url = "https://maven.onyxstudios.dev" }
 }
@@ -38,18 +37,18 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-	modImplementation "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
-	modImplementation "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-entity:${project.cardinal_version}"
+	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
+	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cardinal_version}"
 	modImplementation "io.github.cottonmc:BeeCompatible:${project.beecompatible_version}"
 
-	include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
-	include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-entity:${project.cardinal_version}"
+	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
+	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cardinal_version}"
 	include "io.github.cottonmc:BeeCompatible:${project.beecompatible_version}"
 
-	modCompileOnly "bee-better:BeeBetter:1.6.0"
-	modRuntime "bee-better:BeeBetter:1.6.0"
+	modCompileOnly "com.github.Draylar:bee-better:1.8.0-1.16.4"
+	modRuntime "com.github.Draylar:bee-better:1.8.0-1.16.4"
 
-	modRuntime ("io.github.cottonmc:LibCD:2.3.0+1.15.2") {transitive = false}
+	modRuntime ("io.github.cottonmc:LibCD:3.0.3+1.16.3") {transitive = false}
 	modRuntime ("io.github.cottonmc:Jankson-Fabric:2.0.1+j1.2.0") {transitive = false}
 }
 
