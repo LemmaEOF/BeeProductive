@@ -4,7 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.util.collection.DefaultedList;
 
 /**
  * A simple {@code Inventory} implementation with only default methods + an item list getter.
@@ -38,7 +38,7 @@ public interface ImplementedInventory extends Inventory {
 	 * Returns the inventory size.
 	 */
 	@Override
-	default int getInvSize() {
+	default int size() {
 		return getItems().size();
 	}
 
@@ -46,9 +46,9 @@ public interface ImplementedInventory extends Inventory {
 	 * @return true if this inventory has only empty stacks, false otherwise
 	 */
 	@Override
-	default boolean isInvEmpty() {
-		for (int i = 0; i < getInvSize(); i++) {
-			ItemStack stack = getInvStack(i);
+	default boolean isEmpty() {
+		for (int i = 0; i < size(); i++) {
+			ItemStack stack = getStack(i);
 			if (!stack.isEmpty()) {
 				return false;
 			}
@@ -60,7 +60,7 @@ public interface ImplementedInventory extends Inventory {
 	 * Gets the item in the slot.
 	 */
 	@Override
-	default ItemStack getInvStack(int slot) {
+	default ItemStack getStack(int slot) {
 		return getItems().get(slot);
 	}
 
@@ -70,7 +70,7 @@ public interface ImplementedInventory extends Inventory {
 	 * takes all items in that slot.
 	 */
 	@Override
-	default ItemStack takeInvStack(int slot, int count) {
+	default ItemStack removeStack(int slot, int count) {
 		ItemStack result = Inventories.splitStack(getItems(), slot, count);
 		if (!result.isEmpty()) {
 			markDirty();
@@ -82,20 +82,20 @@ public interface ImplementedInventory extends Inventory {
 	 * Removes the current stack in the {@code slot} and returns it.
 	 */
 	@Override
-	default ItemStack removeInvStack(int slot) {
+	default ItemStack removeStack(int slot) {
 		return Inventories.removeStack(getItems(), slot);
 	}
 
 	/**
 	 * Replaces the current stack in the {@code slot} with the provided stack.
-	 * <p>If the stack is too big for this inventory ({@link Inventory#getInvMaxStackAmount()}),
+	 * <p>If the stack is too big for this inventory ({@link Inventory#getMaxCountPerStack()}),
 	 * it gets resized to this inventory's maximum amount.
 	 */
 	@Override
-	default void setInvStack(int slot, ItemStack stack) {
+	default void setStack(int slot, ItemStack stack) {
 		getItems().set(slot, stack);
-		if (stack.getCount() > getInvMaxStackAmount()) {
-			stack.setCount(getInvMaxStackAmount());
+		if (stack.getCount() > getMaxCountPerStack()) {
+			stack.setCount(getMaxCountPerStack());
 		}
 	}
 
@@ -113,7 +113,7 @@ public interface ImplementedInventory extends Inventory {
 	}
 
 	@Override
-	default boolean canPlayerUseInv(PlayerEntity player) {
+	default boolean canPlayerUse(PlayerEntity player) {
 		return true;
 	}
 }

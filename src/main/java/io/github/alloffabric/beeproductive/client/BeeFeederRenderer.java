@@ -21,7 +21,7 @@ public class BeeFeederRenderer extends BlockEntityRenderer<BeeFeederBlockEntity>
 	@Override
 	public void render(BeeFeederBlockEntity blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		ItemRenderer renderer = MinecraftClient.getInstance().getItemRenderer();
-		ItemStack stack = blockEntity.getInvStack(0);
+		ItemStack stack = blockEntity.getStack(0);
 		if (!stack.isEmpty()) {
 			matrices.push();
 			matrices.translate(.5, 5/16f, .5);

@@ -9,7 +9,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Direction;
 
 import javax.annotation.Nullable;
@@ -53,7 +53,7 @@ public class BeeFeederBlockEntity extends BlockEntity implements ImplementedInve
 	}
 
 	@Override
-	public int[] getInvAvailableSlots(Direction side) {
+	public int[] getAvailableSlots(Direction side) {
 		// Just return an array of all slots
 		int[] result = new int[getItems().size()];
 		for (int i = 0; i < result.length; i++) {
@@ -64,12 +64,12 @@ public class BeeFeederBlockEntity extends BlockEntity implements ImplementedInve
 	}
 
 	@Override
-	public boolean canInsertInvStack(int slot, ItemStack stack, @Nullable Direction dir) {
+	public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
 		return stack.getItem() instanceof NectarItem;
 	}
 
 	@Override
-	public boolean canExtractInvStack(int slot, ItemStack stack, Direction dir) {
+	public boolean canExtract(int slot, ItemStack stack, Direction dir) {
 		return true;
 	}
 }

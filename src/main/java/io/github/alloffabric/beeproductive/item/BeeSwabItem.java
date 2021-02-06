@@ -41,12 +41,12 @@ public class BeeSwabItem extends Item {
 				HoneyFlavor flavor = hive.getFlavorToHarvest();
 				if (flavor != BeeProdHoneys.VANILLA) {
 					Identifier flavorId = BeeProductive.HONEY_FLAVORS.getId(flavor);
-					context.getPlayer().addChatMessage(new TranslatableText("msg.beeproductive.honey_flavor", new TranslatableText("honey." + flavorId.getNamespace() + "." + flavorId.getPath())), true);
+					context.getPlayer().sendMessage(new TranslatableText("msg.beeproductive.honey_flavor", new TranslatableText("honey." + flavorId.getNamespace() + "." + flavorId.getPath())), true);
 				} else {
-					context.getPlayer().addChatMessage(new TranslatableText("msg.beeproductive.honey_vanilla"), true);
+					context.getPlayer().sendMessage(new TranslatableText("msg.beeproductive.honey_vanilla"), true);
 				}
 			} else {
-				context.getPlayer().addChatMessage(new TranslatableText("msg.beeproductive.no_honey"), true);
+				context.getPlayer().sendMessage(new TranslatableText("msg.beeproductive.no_honey"), true);
 			}
 			return ActionResult.SUCCESS;
 		}
@@ -65,12 +65,12 @@ public class BeeSwabItem extends Item {
 			} else {
 				nectarText = new TranslatableText("nectar.beeproductive.none").formatted(Formatting.YELLOW);
 			}
-			user.addChatMessage(new TranslatableText("msg.beeproductive.nectar", nectarText), false);
-			user.addChatMessage(new TranslatableText("msg.beeproductive.traits"), false);
+			user.sendMessage(new TranslatableText("msg.beeproductive.nectar", nectarText), false);
+			user.sendMessage(new TranslatableText("msg.beeproductive.traits"), false);
 			for (Identifier id : BeeProductive.BEE_TRAITS.getIds()) {
 				BeeTrait<?> trait = BeeProductive.BEE_TRAITS.get(id);
 				String value = component.getTraitValue(trait).toString();
-				user.addChatMessage(new TranslatableText("msg.beeproductive.trait.display", new TranslatableText("trait." + id.getNamespace() + "." + id.getPath()), value).formatted(Formatting.GREEN), false);
+				user.sendMessage(new TranslatableText("msg.beeproductive.trait.display", new TranslatableText("trait." + id.getNamespace() + "." + id.getPath()), value).formatted(Formatting.GREEN), false);
 			}
 		}
 		return false;
