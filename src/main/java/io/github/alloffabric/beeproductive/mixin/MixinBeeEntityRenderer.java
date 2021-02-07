@@ -19,7 +19,7 @@ public class MixinBeeEntityRenderer {
 		BeeComponent comp = BeeProductive.BEE_COMPONENT.get(bee);
 		Identifier id = comp.getTraitValue(BeeProdTraits.SKIN);
 		if (id.equals(BeeProdTraits.SKIN.getDefaultValue())) return;
-		if (bee.isAngry()) id = new Identifier(id.getNamespace(), id.getPath() + "_angry");
+		if (bee.hasAngerTime()) id = new Identifier(id.getNamespace(), id.getPath() + "_angry");
 		if (bee.hasNectar()) id = new Identifier(id.getNamespace(), id.getPath() + "_nectar");
 		info.setReturnValue(new Identifier(id.getNamespace(), id.getPath() + ".png"));
 	}

@@ -1,15 +1,18 @@
 package io.github.alloffabric.beeproductive.block.entity;
 
 import io.github.alloffabric.beeproductive.init.BeeProdBlockEntities;
+import io.github.alloffabric.beeproductive.init.BeeProdBlocks;
 import io.github.alloffabric.beeproductive.item.NectarItem;
 import io.github.alloffabric.beeproductive.util.ImplementedInventory;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Direction;
 
 import javax.annotation.Nullable;
@@ -31,8 +34,8 @@ public class BeeFeederBlockEntity extends BlockEntity implements ImplementedInve
 	}
 
 	@Override
-	public void fromTag(CompoundTag tag) {
-		super.fromTag(tag);
+	public void fromTag(BlockState state, CompoundTag tag) {
+		super.fromTag(state, tag);
 		Inventories.fromTag(tag.getCompound("Inventory"), items);
 	}
 
@@ -44,7 +47,7 @@ public class BeeFeederBlockEntity extends BlockEntity implements ImplementedInve
 
 	@Override
 	public void fromClientTag(CompoundTag tag) {
-		fromTag(tag);
+		fromTag(BeeProdBlocks.BEE_FEEDER.getDefaultState(), tag);
 	}
 
 	@Override
@@ -53,7 +56,7 @@ public class BeeFeederBlockEntity extends BlockEntity implements ImplementedInve
 	}
 
 	@Override
-	public int[] getInvAvailableSlots(Direction side) {
+	public int[] getAvailableSlots(Direction side) {
 		// Just return an array of all slots
 		int[] result = new int[getItems().size()];
 		for (int i = 0; i < result.length; i++) {
@@ -64,12 +67,12 @@ public class BeeFeederBlockEntity extends BlockEntity implements ImplementedInve
 	}
 
 	@Override
-	public boolean canInsertInvStack(int slot, ItemStack stack, @Nullable Direction dir) {
+	public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
 		return stack.getItem() instanceof NectarItem;
 	}
 
 	@Override
-	public boolean canExtractInvStack(int slot, ItemStack stack, Direction dir) {
+	public boolean canExtract(int slot, ItemStack stack, Direction dir) {
 		return true;
 	}
 }

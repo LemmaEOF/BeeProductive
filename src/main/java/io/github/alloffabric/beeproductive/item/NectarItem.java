@@ -9,6 +9,7 @@ import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 
 import java.util.HashMap;
@@ -26,15 +27,15 @@ public class NectarItem extends Item {
 	}
 
 	@Override
-	public boolean useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
 		if (entity instanceof BeeEntity) {
 			BeeEntity bee = (BeeEntity)entity;
 			BeeComponent component = BeeProductive.BEE_COMPONENT.get(bee);
 			component.setNectar(nectar);
 			((BeeEntityAccessor)bee).beeproductive$setNectar(true);
-			return true;
+			return ActionResult.SUCCESS;
 		}
-		return false;
+		return ActionResult.PASS;
 	}
 
 	public Nectar getNectar() {

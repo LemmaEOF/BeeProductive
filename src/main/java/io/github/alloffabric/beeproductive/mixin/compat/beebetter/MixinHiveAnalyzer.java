@@ -32,12 +32,12 @@ public class MixinHiveAnalyzer {
 				HoneyFlavor flavor = hive.getFlavorToHarvest();
 				if (flavor != BeeProdHoneys.VANILLA) {
 					Identifier flavorId = BeeProductive.HONEY_FLAVORS.getId(flavor);
-					context.getPlayer().addChatMessage(new TranslatableText("msg.beeproductive.honey_flavor", new TranslatableText("honey." + flavorId.getNamespace() + "." + flavorId.getPath()).asString()), false);
+					context.getPlayer().sendMessage(new TranslatableText("msg.beeproductive.honey_flavor", new TranslatableText("honey." + flavorId.getNamespace() + "." + flavorId.getPath()).asString()), false);
 				} else {
-					context.getPlayer().addChatMessage(new TranslatableText("msg.beeproductive.honey_vanilla"), false);
+					context.getPlayer().sendMessage(new TranslatableText("msg.beeproductive.honey_vanilla"), false);
 				}
 			} else {
-				context.getPlayer().addChatMessage(new TranslatableText("msg.beeproductive.no_honey"), false);
+				context.getPlayer().sendMessage(new TranslatableText("msg.beeproductive.no_honey"), false);
 			}
 		}
 	}

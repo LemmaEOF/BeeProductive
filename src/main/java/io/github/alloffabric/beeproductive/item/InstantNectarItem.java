@@ -7,6 +7,7 @@ import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 
 import java.util.HashMap;
@@ -24,15 +25,15 @@ public class InstantNectarItem extends Item {
 	}
 
 	@Override
-	public boolean useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-		if (entity.getEntityWorld().isClient) return false;
+	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+		if (entity.getEntityWorld().isClient) return ActionResult.PASS;
 		if (entity instanceof BeeEntity) {
 			BeeEntity bee = (BeeEntity)entity;
 			nectar.onApply(bee, DummyHive.INSTANCE);
 			stack.decrement(1);
-			return true;
+			return ActionResult.SUCCESS;
 		}
-		return false;
+		return ActionResult.PASS;
 	}
 
 	public Nectar getNectar() {
@@ -40,7 +41,7 @@ public class InstantNectarItem extends Item {
 	}
 
 	@Override
-	public boolean hasEnchantmentGlint(ItemStack stack) {
+	public boolean hasGlint(ItemStack stack) {
 		return true;
 	}
 }

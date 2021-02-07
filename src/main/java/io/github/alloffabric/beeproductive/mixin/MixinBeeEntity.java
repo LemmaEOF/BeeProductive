@@ -17,6 +17,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.Item;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
@@ -56,20 +57,20 @@ public abstract class MixinBeeEntity extends LivingEntity implements BeeEntityAc
 		this.setHasNectar(hasNectar);
 	}
 
-	@ModifyArg(method = "isFlowers", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;matches(Lnet/minecraft/tag/Tag;)Z"))
+	@ModifyArg(method = "isFlowers", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;isIn(Lnet/minecraft/tag/Tag;)Z"))
 	private Tag<Block> modFeedTag(Tag<Block> original) {
 		return BeeProdTags.BEE_FEEDING;
 	}
 
-	@Inject(method = "isAngry", at = @At("HEAD"), cancellable = true)
-	private void modAnger(CallbackInfoReturnable<Boolean> info) {
+	@Inject(method = "getAngerTime", at = @At("HEAD"), cancellable = true)
+	private void modAnger(CallbackInfoReturnable<Integer> info) {
 		BeeComponent component = BeeProductive.BEE_COMPONENT.get(this);
-		if (component.getTraitValue(BeeProdTraits.PACIFIST)) info.setReturnValue(false);
+		if (component.getTraitValue(BeeProdTraits.PACIFIST)) info.setReturnValue(0);
 	}
 
 	@Inject(method = "createChild", at = @At("RETURN"))
 	@SuppressWarnings("unchecked")
-	private void spawnChildBee(PassiveEntity partner, CallbackInfoReturnable<BeeEntity> info) {
+	private void spawnChildBee(ServerWorld serverWorld, PassiveEntity partner, CallbackInfoReturnable<BeeEntity> info) {
 		if (partner instanceof BeeEntity) {
 			Random random = new Random();
 			BeeComponent myComp = BeeProductive.BEE_COMPONENT.get(this);
@@ -92,20 +93,20 @@ public abstract class MixinBeeEntity extends LivingEntity implements BeeEntityAc
 
 		@Shadow @Final @Mutable
 		private Predicate<BlockState> flowerPredicate = (state) -> {
-			if (state.matches(BlockTags.TALL_FLOWERS)) {
+			if (state.isIn(BlockTags.TALL_FLOWERS)) {
 				if (state.getBlock() == Blocks.SUNFLOWER) {
 					return state.get(TallPlantBlock.HALF) == DoubleBlockHalf.UPPER;
 				} else {
 					return true;
 				}
 			} else {
-				return state.matches(BeeProdTags.BEE_FEEDING);
+				return state.isIn(BeeProdTags.BEE_FEEDING);
 			}
 		};
 
 		@Shadow protected abstract boolean completedPollination();
 
-		@Inject(method = "Lnet/minecraft/entity/passive/BeeEntity$PollinateGoal;stop()V", at = @At("HEAD"))
+		@Inject(method = "stop()V", at = @At("HEAD"))
 		private void applyNectar(CallbackInfo info) {
 			World world = field_20377.getEntityWorld();
 			BlockPos pos = field_20377.getFlowerPos();

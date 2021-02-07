@@ -6,7 +6,6 @@ import io.github.alloffabric.beeproductive.init.BeeProdNectars;
 import io.github.alloffabric.beeproductive.item.NectarItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.EntityContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
@@ -21,8 +20,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 import javax.annotation.Nullable;
@@ -33,7 +32,7 @@ public class BeeFeederBlock extends Block implements InventoryProvider, BlockEnt
 	}
 
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext ePos) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext ePos) {
 		//TODO: change once Blockbench's VoxelShape export is fixed
 		return VoxelShapes.cuboid(5/16d, 0, 5/16d, 11/16d, 6/16d, 11/16d);
 	}
@@ -44,15 +43,15 @@ public class BeeFeederBlock extends Block implements InventoryProvider, BlockEnt
 	}
 
 	@Override
-	public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState neighborState, IWorld world, BlockPos pos, BlockPos neighborPos) {
+	public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
 		return !canPlaceAt(world.getBlockState(pos), world, pos)? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, facing, neighborState, world, pos, neighborPos);
 	}
 
 	@Override
-	public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+	public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
 		SidedInventory inv = getInventory(state, world, pos);
 		if (inv != null) ItemScatterer.spawn(world, pos, inv);
-		super.onBlockRemoved(state, world, pos, newState, moved);
+		super.onStateReplaced(state, world, pos, newState, moved);
 	}
 
 	@Override
@@ -63,8 +62,8 @@ public class BeeFeederBlock extends Block implements InventoryProvider, BlockEnt
 			Inventory in = (Inventory)be;
 			ItemStack stack = player.getStackInHand(hand);
 			if (stack.getItem() instanceof NectarItem || stack.isEmpty()) {
-				ItemStack invStack = in.getInvStack(0);
-				in.setInvStack(0, stack);
+				ItemStack invStack = in.getStack(0);
+				in.setStack(0, stack);
 				player.setStackInHand(hand, invStack);
 				player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1F, 1F);
 				return ActionResult.SUCCESS;
@@ -77,7 +76,7 @@ public class BeeFeederBlock extends Block implements InventoryProvider, BlockEnt
 		BlockEntity be = world.getBlockEntity(pos);
 		if (be instanceof Inventory) {
 			Inventory in = (Inventory)be;
-			ItemStack stack = in.getInvStack(0);
+			ItemStack stack = in.getStack(0);
 			if (stack.getItem() instanceof NectarItem) {
 				Nectar nectar = ((NectarItem)stack.getItem()).getNectar();
 				stack.decrement(1);
@@ -88,7 +87,7 @@ public class BeeFeederBlock extends Block implements InventoryProvider, BlockEnt
 	}
 
 	@Override
-	public SidedInventory getInventory(BlockState state, IWorld world, BlockPos pos) {
+	public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
 		BlockEntity be = world.getBlockEntity(pos);
 		if (be instanceof SidedInventory) {
 			return (SidedInventory)be;
