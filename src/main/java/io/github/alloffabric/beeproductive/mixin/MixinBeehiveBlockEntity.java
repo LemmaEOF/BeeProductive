@@ -22,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Coerce;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -55,8 +56,8 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 	}
 
 	@Inject(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;onHoneyDelivered()V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-	private void applyNectarEffects(BlockState state, CompoundTag tag, List<Entity> entities, BeehiveBlockEntity.BeeState beeState, CallbackInfoReturnable<Boolean> info,
-									BlockPos pos, Direction facingDir, boolean unk, Entity entity, BeeEntity bee) {
+	private void applyNectarEffects(BlockState state, @Coerce Object tag, List<Entity> entities, BeehiveBlockEntity.BeeState beeState, CallbackInfoReturnable<Boolean> info,
+									BlockPos pos, CompoundTag t, Direction facingDir, boolean unk, Entity entity, BeeEntity bee) {
 		Beehive hive = ((BeehiveProvider) world.getBlockState(pos).getBlock()).getBeehive(this.world, pos, state);
 		BeeComponent component = BeeProductive.BEE_COMPONENT.get(bee);
 		component.getNectar().onApply(bee, hive);
@@ -75,7 +76,7 @@ public abstract class MixinBeehiveBlockEntity extends BlockEntity implements Bee
 	}
 
 	@Inject(method = "fromTag", at = @At("RETURN"))
-	private void readFlavorTags(CompoundTag tag, CallbackInfo info) {
+	private void readFlavorTags(BlockState state, CompoundTag tag, CallbackInfo info) {
 		flavors.clear();
 		CompoundTag beeProductiveTag = tag.getCompound("BeeProductive");
 		CompoundTag flavorTag = beeProductiveTag.getCompound("Flavors");

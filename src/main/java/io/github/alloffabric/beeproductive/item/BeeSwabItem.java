@@ -54,7 +54,7 @@ public class BeeSwabItem extends Item {
 	}
 
 	@Override
-	public boolean useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
 		if (!user.world.isClient && entity instanceof BeeEntity) {
 			BeeComponent component = BeeProductive.BEE_COMPONENT.get(entity);
 			Nectar nectar = component.getNectar();
@@ -72,7 +72,8 @@ public class BeeSwabItem extends Item {
 				String value = component.getTraitValue(trait).toString();
 				user.sendMessage(new TranslatableText("msg.beeproductive.trait.display", new TranslatableText("trait." + id.getNamespace() + "." + id.getPath()), value).formatted(Formatting.GREEN), false);
 			}
+			return ActionResult.CONSUME;
 		}
-		return false;
+		return ActionResult.PASS;
 	}
 }

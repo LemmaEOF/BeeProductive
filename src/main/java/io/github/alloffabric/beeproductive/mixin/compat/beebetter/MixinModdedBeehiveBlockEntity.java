@@ -96,7 +96,7 @@ public abstract class MixinModdedBeehiveBlockEntity extends BlockEntity implemen
 	}
 
 	@Inject(method = "fromTag", at = @At("RETURN"))
-	private void readFlavorTags(CompoundTag tag, CallbackInfo info) {
+	private void readFlavorTags(BlockState state, CompoundTag tag, CallbackInfo ci) {
 		flavors.clear();
 		CompoundTag beeProductiveTag = tag.getCompound("BeeProductive");
 		CompoundTag flavorTag = beeProductiveTag.getCompound("Flavors");
